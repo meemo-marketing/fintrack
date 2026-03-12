@@ -11,7 +11,8 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap');
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  html,body{background:#111214;overscroll-behavior:none;height:100%;}
+  html,body{background:#111214;overscroll-behavior:none;height:100%;overflow:hidden;}
+  #root{height:100%;overflow:hidden;}
   input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.6);}
   @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
   .hide-sb::-webkit-scrollbar{display:none;}
@@ -435,7 +436,7 @@ function HomeScreen({txs,bank,budget,onAdd,onEditBank,categories}) {
   const budgetPct=Math.min((stats.expense/(budget||1))*100,100);
   const budgetColor=budgetPct>=90?G.red:budgetPct>=75?G.gold:G.green;
   return (
-    <div style={{paddingBottom:100,overflowY:"auto"}} className="hide-sb">
+    <div style={{paddingBottom:100,overflowY:"auto",WebkitOverflowScrolling:"touch",height:"100%"}} className="hide-sb">
       <div style={{padding:"20px 20px 14px"}}>
         <div style={{color:G.sub,fontSize:11,fontWeight:600,letterSpacing:.6,textTransform:"uppercase"}}>{MONTHS_IT[now.getMonth()]} {now.getFullYear()}</div>
         <div style={{fontSize:34,fontWeight:800,marginTop:3,letterSpacing:-1,color:stats.balance>=0?G.green:G.red}}>{stats.balance>=0?"+":""}{fmt(stats.balance)}</div>
@@ -533,7 +534,7 @@ function MonthScreen({txs,onDelete,onEdit,categories}) {
     return(tx.description?.toLowerCase().includes(term)||c.label.toLowerCase().includes(term))&&(activeFilter?tx.category===activeFilter:true);
   }),[stats.list,search,activeFilter,categories]);
   return (
-    <div style={{paddingBottom:100,overflowY:"auto"}} className="hide-sb">
+    <div style={{paddingBottom:100,overflowY:"auto",WebkitOverflowScrolling:"touch",height:"100%"}} className="hide-sb">
       <div style={{padding:"20px 20px 0"}}>
         <MonthSelector year={year} month={month} onChange={(y,m)=>{setYear(y);setMonth(m);}}/>
         <div style={{background:stats.balance>=0?"#4ADE8010":"#F8717110",border:`1px solid ${stats.balance>=0?"#4ADE8030":"#F8717130"}`,borderRadius:16,padding:"14px",textAlign:"center",marginBottom:12}}>
@@ -575,7 +576,7 @@ function YearScreen({txs}) {
   const annualT=totInc+totExp;
   const annualDonut=annualT>0?[{color:G.green,pct:(totInc/annualT)*100},{color:G.red,pct:(totExp/annualT)*100}]:[{color:G.muted,pct:100}];
   return (
-    <div style={{paddingBottom:100,overflowY:"auto"}} className="hide-sb">
+    <div style={{paddingBottom:100,overflowY:"auto",WebkitOverflowScrolling:"touch",height:"100%"}} className="hide-sb">
       <div style={{padding:"20px 20px 0"}}>
         <YearSelector year={year} onChange={setYear}/>
         <div style={{background:G.card,borderRadius:16,border:`1px solid ${G.border}`,padding:"16px",marginBottom:14,display:"flex",gap:14,alignItems:"center"}}>
@@ -628,7 +629,7 @@ function SettingsScreen({budget,setBudget,categories,setCategories,txs,bank,onLo
     const a=document.createElement("a");a.href=url;a.download=`fintrack_backup_${new Date().toISOString().slice(0,10)}.json`;a.click();
   };
   return (
-    <div style={{padding:"20px",paddingBottom:100,overflowY:"auto"}} className="hide-sb">
+    <div style={{padding:"20px",paddingBottom:100,overflowY:"auto",WebkitOverflowScrolling:"touch",height:"100%"}} className="hide-sb">
       <div style={{background:G.card,borderRadius:16,border:`1px solid ${G.border}`,padding:"16px",marginBottom:20}}>
         <div style={{fontSize:14,fontWeight:700,marginBottom:12}}>Backup Dati</div>
         <button onClick={exportData} style={{width:"100%",padding:"12px",borderRadius:10,border:`1px solid ${G.accent}`,background:G.accent+"11",color:G.accent,cursor:"pointer",fontFamily:"'Sora',sans-serif",fontSize:13,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
