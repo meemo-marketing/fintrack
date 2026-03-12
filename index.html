@@ -781,7 +781,7 @@ function App() {
 
   return (
     <>
-      <div style={{fontFamily:"'Sora',sans-serif",background:G.bg,color:G.text,height:"100dvh",maxWidth:480,margin:"0 auto",position:"relative",overflowX:"hidden",display:"flex",flexDirection:"column"}}>
+      <div style={{fontFamily:"'Sora',sans-serif",background:G.bg,color:G.text,height:"100dvh",maxWidth:480,margin:"0 auto",position:"relative",overflowX:"hidden",display:"flex",flexDirection:"column",overflow:"hidden"}}>
         <div style={{padding:"14px 20px 12px",borderBottom:`1px solid ${G.border}`,background:G.bg,flexShrink:0}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <div style={{fontWeight:800,fontSize:20,letterSpacing:-.5}}><span style={{color:G.accent}}>fin</span><span style={{color:G.text}}>track</span></div>
@@ -789,7 +789,7 @@ function App() {
           </div>
         </div>
 
-        <div style={{flex:1,overflow:"hidden",position:"relative"}}>
+        <div style={{flex:1,overflow:"hidden",position:"relative",minHeight:0}}>
           {tab==="home"&&<HomeScreen txs={txs} bank={bank} budget={budget} onAdd={()=>setForm("new")} onEditBank={()=>setBankModal(true)} categories={categories}/>}
           {tab==="month"&&<MonthScreen txs={txs} onDelete={delTx} onEdit={setForm} categories={categories}/>}
           {tab==="year"&&<YearScreen txs={txs}/>}
